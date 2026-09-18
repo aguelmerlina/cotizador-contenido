@@ -1,7 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -148,8 +148,30 @@ color:#666666;
 font-size:13px;
 }
 
-.item strong:last-child{
+.item-right{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.item-right strong{
 color:#111111;
+}
+
+.delete-btn{
+background:none;
+border:none;
+color:#999;
+font-size:18px;
+cursor:pointer;
+padding:4px;
+width:auto;
+transition:.2s;
+}
+
+.delete-btn:hover{
+color:#9F49A4;
+transform:scale(1.1);
 }
 
 .resume{
@@ -236,7 +258,7 @@ flex-direction:column;
 
 <h1>Calculadora de valores</h1>
 
-<p>Producción y edición de contenido</p>
+<p>Producción y/o edición de contenido</p>
 
 </div>
 
@@ -250,7 +272,7 @@ flex-direction:column;
 
 <option>Reel</option>
 <option>Carrusel</option>
-<option>Historias (3-5)</option>
+<option>Historias (Pack hasta 5)</option>
 
 </select>
 
@@ -261,8 +283,8 @@ flex-direction:column;
 <option value="" selected disabled>Elegir tipo de servicio</option>
 
 <option>Edición solo</option>
-<option>Producción + Grabación + Edición</option>
-<option>Idea + Guión + Producción + Grabación + Edición</option>
+<option>Producción y Grabación + Edición</option>
+<option>Idea y Guión + Producción y Grabación + Edición</option>
 
 </select>
 
@@ -343,20 +365,20 @@ const tarifas={
 
 "Reel":{
 "Edición solo":18000,
-"Producción + Grabación + Edición":35000,
-"Idea + Guión + Producción + Grabación + Edición":50000
+"Producción y Grabación + Edición":35000,
+"Idea y Guión + Producción y Grabación + Edición":50000
 },
 
 "Carrusel":{
 "Edición solo":15000,
-"Producción + Grabación + Edición":25000,
-"Idea + Guión + Producción + Grabación + Edición":35000
+"Producción y Grabación + Edición":25000,
+"Idea y Guión + Producción y Grabación + Edición":35000
 },
 
-"Historias (3-5)":{
+"Historias (Pack hasta 5)":{
 "Edición solo":10000,
-"Producción + Grabación + Edición":20000,
-"Idea + Guión + Producción + Grabación + Edición":30000
+"Producción y Grabación + Edición":20000,
+"Idea y Guión + Producción y Grabación + Edición":30000
 }
 
 };
@@ -382,6 +404,15 @@ currency:"ARS",
 maximumFractionDigits:0
 }).format(Math.round(n));
 
+function calcularTotal(item){
+
+const cantidad=Math.min(item.cantidad,10);
+const unitario=tarifas[item.trabajo][item.tipo];
+
+return unitario*cantidad*descuentos[cantidad];
+
+}
+
 function render(){
 
 const lista=document.getElementById("lista");
@@ -404,21 +435,38 @@ return;
 
 }
 
-lista.innerHTML=items.map(item=>{
+lista.innerHTML=items.map((item,index)=>{
+
+item.total=calcularTotal(item);
 
 total+=item.total;
 
 if(item.trabajo==="Reel") reels+=item.total;
 if(item.trabajo==="Carrusel") carruseles+=item.total;
-if(item.trabajo==="Historias (3-5)") historias+=item.total;
+if(item.trabajo==="Historias (Pack hasta 5)") historias+=item.total;
 
 return`
 <div class="item">
+
 <div class="item-info">
 <strong>${item.cantidad} ${item.trabajo}</strong>
 <small>${item.tipo}</small>
 </div>
+
+<div class="item-right">
+
 <strong>${dinero(item.total)}</strong>
+
+<button class="delete-btn"
+onclick="eliminarItem(${index})"
+title="Eliminar">
+
+🗑
+
+</button>
+
+</div>
+
 </div>`;
 
 }).join("");
@@ -430,14 +478,23 @@ document.getElementById("historias").textContent=dinero(historias);
 
 }
 
+function eliminarItem(index){
+
+items.splice(index,1);
+render();
+
+}
+
 document.getElementById("agregar").onclick=()=>{
 
 const trabajo=document.getElementById("trabajo").value;
 const tipo=document.getElementById("tipo").value;
 
-if(!trabajo || !tipo){
+if(!trabajo||!tipo){
+
 alert("Completá el trabajo y el tipo de servicio.");
 return;
+
 }
 
 let cantidad=parseInt(document.getElementById("cantidad").value);
@@ -445,15 +502,27 @@ let cantidad=parseInt(document.getElementById("cantidad").value);
 if(cantidad<1)cantidad=1;
 if(cantidad>10)cantidad=10;
 
-const unitario=tarifas[trabajo][tipo];
-const total=unitario*cantidad*descuentos[cantidad];
+const existente=items.find(i=>
+
+i.trabajo===trabajo &&
+i.tipo===tipo
+
+);
+
+if(existente){
+
+existente.cantidad=Math.min(existente.cantidad+cantidad,10);
+
+}else{
 
 items.push({
 trabajo,
 tipo,
 cantidad,
-total
+total:0
 });
+
+}
 
 document.getElementById("trabajo").selectedIndex=0;
 document.getElementById("tipo").selectedIndex=0;
@@ -476,9 +545,13 @@ if(items.length===0)return;
 
 let suma=0;
 
-const texto=items.map(item=>{
-suma+=item.total;
-return`${item.cantidad} ${item.trabajo} — ${item.tipo}: ${dinero(item.total)}`;
+const texto=items.map(i=>{
+
+i.total=calcularTotal(i);
+suma+=i.total;
+
+return`${i.cantidad} ${i.trabajo} — ${i.tipo}: ${dinero(i.total)}`;
+
 }).join("\n")+`\n\nTOTAL DEL PROYECTO: ${dinero(suma)}`;
 
 navigator.clipboard.writeText(texto);
@@ -515,7 +588,7 @@ doc.setFont("helvetica","normal");
 doc.setFontSize(12);
 doc.setTextColor(40);
 
-doc.text("Producción y Edición de Contenido",20,y);
+doc.text("Producción y/o Edición de Contenido",20,y);
 
 y+=10;
 
@@ -531,9 +604,12 @@ doc.line(20,y,190,y);
 
 y+=12;
 
-let total=0;
+let suma=0;
 
 items.forEach(item=>{
+
+item.total=calcularTotal(item);
+suma+=item.total;
 
 doc.setFont("helvetica","bold");
 doc.setFontSize(12);
@@ -551,8 +627,6 @@ doc.text(item.tipo,20,y);
 doc.text(dinero(item.total),190,y,{align:"right"});
 
 y+=12;
-
-total+=item.total;
 
 if(y>250){
 
@@ -574,7 +648,7 @@ doc.setTextColor(159,73,164);
 
 doc.text("Total del proyecto",20,y);
 
-doc.text(dinero(total),190,y,{align:"right"});
+doc.text(dinero(suma),190,y,{align:"right"});
 
 y+=22;
 
@@ -599,3 +673,4 @@ render();
 
 </body>
 </html>
+```
