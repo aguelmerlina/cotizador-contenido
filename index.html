@@ -26,7 +26,7 @@ padding:32px;
 }
 
 .container{
-max-width:650px;
+max-width:680px;
 margin:auto;
 }
 
@@ -35,13 +35,13 @@ margin-bottom:28px;
 }
 
 .header h1{
-color:#194A3B;
-font-size:32px;
+color:#9F49A4;
+font-size:34px;
 margin-bottom:6px;
 }
 
 .header p{
-color:#777;
+color:#6E6E6E;
 }
 
 .card{
@@ -49,7 +49,7 @@ background:white;
 border-radius:24px;
 padding:24px;
 margin-bottom:20px;
-box-shadow:0 6px 20px rgba(0,0,0,.05);
+box-shadow:0 8px 24px rgba(0,0,0,.05);
 border:1px solid #E8E2D8;
 }
 
@@ -57,9 +57,9 @@ label{
 display:block;
 font-size:13px;
 font-weight:700;
-color:#194A3B;
+color:#9F49A4;
 margin-bottom:8px;
-margin-top:12px;
+margin-top:14px;
 }
 
 select,input{
@@ -69,10 +69,16 @@ border-radius:14px;
 border:1px solid #D8D2C7;
 font-size:15px;
 background:white;
+transition:.2s;
+}
+
+select:focus,input:focus{
+outline:none;
+border-color:#9F49A4;
+box-shadow:0 0 0 3px rgba(159,73,164,.15);
 }
 
 button{
-width:100%;
 padding:15px;
 border:none;
 border-radius:14px;
@@ -83,40 +89,25 @@ transition:.2s;
 }
 
 .primary{
-background:#194A3B;
+width:100%;
+background:#9F49A4;
 color:white;
-margin-top:20px;
+margin-top:22px;
 }
 
 .primary:hover{
-background:#143739;
+background:#883A8D;
 }
 
 .secondary{
+flex:1;
 background:white;
-border:1px solid #194A3B;
-color:#194A3B;
-margin-top:12px;
+border:1px solid #9F49A4;
+color:#9F49A4;
 }
 
-.totalBox{
-background:#194A3B;
-color:white;
-border-radius:22px;
-padding:24px;
-text-align:center;
-margin-top:18px;
-}
-
-.totalBox small{
-display:block;
-opacity:.8;
-margin-bottom:6px;
-letter-spacing:.5px;
-}
-
-.totalBox h2{
-font-size:38px;
+.secondary:hover{
+background:#F7ECF8;
 }
 
 .item{
@@ -137,7 +128,7 @@ margin-top:4px;
 }
 
 .resume{
-margin-top:16px;
+margin-top:18px;
 border-top:1px solid #E5DFD6;
 padding-top:16px;
 }
@@ -148,23 +139,39 @@ justify-content:space-between;
 padding:6px 0;
 }
 
+.totalBox{
+background:#9F49A4;
+color:white;
+border-radius:22px;
+padding:26px;
+text-align:center;
+margin-top:18px;
+}
+
+.totalBox small{
+display:block;
+opacity:.85;
+letter-spacing:.5px;
+margin-bottom:6px;
+}
+
+.totalBox h2{
+font-size:40px;
+}
+
 .empty{
 text-align:center;
 color:#8B8B8B;
-padding:18px;
+padding:20px;
 }
 
 .footer-actions{
 display:flex;
 gap:10px;
-margin-top:18px;
+margin-top:20px;
 }
 
-.footer-actions button{
-flex:1;
-}
-
-@media(max-width:600px){
+@media(max-width:640px){
 
 body{
 padding:18px;
@@ -193,7 +200,7 @@ flex-direction:column;
 
 <div class="header">
 <h1>Calculadora de Honorarios</h1>
-<p>Producción de contenido</p>
+<p>Producción y edición de contenido</p>
 </div>
 
 <div class="card">
@@ -218,18 +225,24 @@ flex-direction:column;
 
 <input id="cantidad" type="number" min="1" max="10" value="1">
 
-<button class="primary" id="agregar">Agregar al presupuesto</button>
+<button class="primary" id="agregar">
+Agregar al presupuesto
+</button>
 
 </div>
 
 <div class="card">
 
-<h3 style="color:#194A3B;margin-bottom:12px;">Resumen del proyecto</h3>
+<h3 style="color:#9F49A4;margin-bottom:12px;">
+Resumen del proyecto
+</h3>
 
 <div id="lista">
+
 <div class="empty">
 Todavía no agregaste trabajos.
 </div>
+
 </div>
 
 <div class="resume">
@@ -261,15 +274,25 @@ Todavía no agregaste trabajos.
 
 <div class="footer-actions">
 
-<button class="secondary" id="copiar">Copiar presupuesto</button>
+<button class="secondary" id="copiar">
+Copiar presupuesto
+</button>
 
-<button class="secondary" id="reiniciar">Reiniciar</button>
+<button class="secondary" id="pdf">
+Descargar PDF
+</button>
+
+<button class="secondary" id="reiniciar">
+Reiniciar
+</button>
 
 </div>
 
 </div>
 
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
 
@@ -277,35 +300,35 @@ const tarifas={
 
 "Reel":{
 "Edición solo":18000,
-"Producción + Grabación + Edición":28000,
-"Idea + Guión + Producción + Grabación + Edición":35000
+"Producción + Grabación + Edición":35000,
+"Idea + Guión + Producción + Grabación + Edición":50000
 },
 
 "Carrusel":{
 "Edición solo":15000,
-"Producción + Grabación + Edición":22000,
-"Idea + Guión + Producción + Grabación + Edición":28000
+"Producción + Grabación + Edición":25000,
+"Idea + Guión + Producción + Grabación + Edición":35000
 },
 
 "Historias (3-5)":{
 "Edición solo":10000,
-"Producción + Grabación + Edición":15000,
-"Idea + Guión + Producción + Grabación + Edición":18000
+"Producción + Grabación + Edición":20000,
+"Idea + Guión + Producción + Grabación + Edición":30000
 }
 
 };
 
 const descuentos={
 1:1,
-2:.95,
-3:.92,
-4:.90,
-5:.88,
-6:.85,
-7:.83,
-8:.80,
-9:.78,
-10:.75
+2:.98,
+3:.96,
+4:.94,
+5:.92,
+6:.90,
+7:.88,
+8:.87,
+9:.86,
+10:.85
 };
 
 const items=[];
@@ -338,7 +361,7 @@ return;
 
 }
 
-lista.innerHTML=items.map((i,index)=>{
+lista.innerHTML=items.map(i=>{
 
 total+=i.total;
 
@@ -410,11 +433,110 @@ navigator.clipboard.writeText(texto);
 
 };
 
+document.getElementById("pdf").onclick=()=>{
+
+if(items.length===0)return;
+
+const { jsPDF }=window.jspdf;
+
+const doc=new jsPDF();
+
+const hoy=new Date();
+
+const fecha=hoy.toLocaleDateString("es-AR",{
+day:"2-digit",
+month:"long",
+year:"numeric"
+});
+
+let y=24;
+
+doc.setFont("helvetica","bold");
+doc.setFontSize(20);
+doc.setTextColor(159,73,164);
+
+doc.text("Merlina Aguel",20,y);
+
+y+=8;
+
+doc.setFont("helvetica","normal");
+doc.setFontSize(12);
+
+doc.text("Producción y Edición de Contenido",20,y);
+
+y+=10;
+
+doc.setTextColor(120);
+
+doc.text(`Fecha de emisión: ${fecha}`,20,y);
+
+y+=14;
+
+doc.setDrawColor(225);
+doc.line(20,y,190,y);
+
+y+=12;
+
+let total=0;
+
+items.forEach(item=>{
+
+doc.setFont("helvetica","bold");
+doc.setFontSize(12);
+doc.setTextColor(40);
+
+doc.text(`${item.cantidad} ${item.trabajo}`,20,y);
+
+y+=7;
+
+doc.setFont("helvetica","normal");
+doc.setFontSize(11);
+
+doc.text(item.tipo,20,y);
+
+doc.text(dinero(item.total),190,y,{align:"right"});
+
+y+=12;
+
+total+=item.total;
+
+if(y>250){
+
+doc.addPage();
+y=24;
+
+}
+
+});
+
+doc.setDrawColor(225);
+doc.line(20,y,190,y);
+
+y+=14;
+
+doc.setFont("helvetica","bold");
+doc.setFontSize(18);
+doc.setTextColor(159,73,164);
+
+doc.text(`Total del proyecto`,20,y);
+
+doc.text(dinero(total),190,y,{align:"right"});
+
+y+=22;
+
+doc.setFont("helvetica","normal");
+doc.setFontSize(10);
+doc.setTextColor(120);
+
+doc.text("Este presupuesto es orientativo y puede ajustarse según el alcance del proyecto.",20,y,{maxWidth:170});
+
+doc.save("Presupuesto-Merlina-Aguel.pdf");
+
+};
+
 render();
 
 </script>
 
 </body>
 </html>
-
-<!-- primer deploy -->
