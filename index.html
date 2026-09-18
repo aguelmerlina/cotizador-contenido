@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotizador de Contenido</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Manrope",sans-serif;
+}
+
+body{
+background:#F7F4EC;
+color:#2F2F2F;
+padding:32px;
+}
+
+.container{
+max-width:650px;
+margin:auto;
+}
+
+.header{
+margin-bottom:28px;
+}
+
+.header h1{
+color:#194A3B;
+font-size:32px;
+margin-bottom:6px;
+}
+
+.header p{
+color:#777;
+}
+
+.card{
+background:white;
+border-radius:24px;
+padding:24px;
+margin-bottom:20px;
+box-shadow:0 6px 20px rgba(0,0,0,.05);
+border:1px solid #E8E2D8;
+}
+
+label{
+display:block;
+font-size:13px;
+font-weight:700;
+color:#194A3B;
+margin-bottom:8px;
+margin-top:12px;
+}
+
+select,input{
+width:100%;
+padding:14px;
+border-radius:14px;
+border:1px solid #D8D2C7;
+font-size:15px;
+background:white;
+}
+
+button{
+width:100%;
+padding:15px;
+border:none;
+border-radius:14px;
+cursor:pointer;
+font-size:15px;
+font-weight:700;
+transition:.2s;
+}
+
+.primary{
+background:#194A3B;
+color:white;
+margin-top:20px;
+}
+
+.primary:hover{
+background:#143739;
+}
+
+.secondary{
+background:white;
+border:1px solid #194A3B;
+color:#194A3B;
+margin-top:12px;
+}
+
+.totalBox{
+background:#194A3B;
+color:white;
+border-radius:22px;
+padding:24px;
+text-align:center;
+margin-top:18px;
+}
+
+.totalBox small{
+display:block;
+opacity:.8;
+margin-bottom:6px;
+letter-spacing:.5px;
+}
+
+.totalBox h2{
+font-size:38px;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+padding:14px 0;
+border-bottom:1px solid #EEE8DF;
+}
+
+.item:last-child{
+border-bottom:none;
+}
+
+.item-info small{
+display:block;
+color:#777;
+margin-top:4px;
+}
+
+.resume{
+margin-top:16px;
+border-top:1px solid #E5DFD6;
+padding-top:16px;
+}
+
+.resume-line{
+display:flex;
+justify-content:space-between;
+padding:6px 0;
+}
+
+.empty{
+text-align:center;
+color:#8B8B8B;
+padding:18px;
+}
+
+.footer-actions{
+display:flex;
+gap:10px;
+margin-top:18px;
+}
+
+.footer-actions button{
+flex:1;
+}
+
+@media(max-width:600px){
+
+body{
+padding:18px;
+}
+
+.header h1{
+font-size:28px;
+}
+
+.totalBox h2{
+font-size:32px;
+}
+
+.footer-actions{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>Calculadora de Honorarios</h1>
+<p>Producción de contenido</p>
+</div>
+
+<div class="card">
+
+<label>Trabajo</label>
+
+<select id="trabajo">
+<option>Reel</option>
+<option>Carrusel</option>
+<option>Historias (3-5)</option>
+</select>
+
+<label>Tipo de servicio</label>
+
+<select id="tipo">
+<option>Edición solo</option>
+<option>Producción + Grabación + Edición</option>
+<option>Idea + Guión + Producción + Grabación + Edición</option>
+</select>
+
+<label>Cantidad</label>
+
+<input id="cantidad" type="number" min="1" max="10" value="1">
+
+<button class="primary" id="agregar">Agregar al presupuesto</button>
+
+</div>
+
+<div class="card">
+
+<h3 style="color:#194A3B;margin-bottom:12px;">Resumen del proyecto</h3>
+
+<div id="lista">
+<div class="empty">
+Todavía no agregaste trabajos.
+</div>
+</div>
+
+<div class="resume">
+
+<div class="resume-line">
+<span>Reels</span>
+<strong id="reels">$0</strong>
+</div>
+
+<div class="resume-line">
+<span>Carruseles</span>
+<strong id="carruseles">$0</strong>
+</div>
+
+<div class="resume-line">
+<span>Historias</span>
+<strong id="historias">$0</strong>
+</div>
+
+</div>
+
+<div class="totalBox">
+
+<small>TOTAL DEL PROYECTO</small>
+
+<h2 id="total">$0</h2>
+
+</div>
+
+<div class="footer-actions">
+
+<button class="secondary" id="copiar">Copiar presupuesto</button>
+
+<button class="secondary" id="reiniciar">Reiniciar</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const tarifas={
+
+"Reel":{
+"Edición solo":18000,
+"Producción + Grabación + Edición":28000,
+"Idea + Guión + Producción + Grabación + Edición":35000
+},
+
+"Carrusel":{
+"Edición solo":15000,
+"Producción + Grabación + Edición":22000,
+"Idea + Guión + Producción + Grabación + Edición":28000
+},
+
+"Historias (3-5)":{
+"Edición solo":10000,
+"Producción + Grabación + Edición":15000,
+"Idea + Guión + Producción + Grabación + Edición":18000
+}
+
+};
+
+const descuentos={
+1:1,
+2:.95,
+3:.92,
+4:.90,
+5:.88,
+6:.85,
+7:.83,
+8:.80,
+9:.78,
+10:.75
+};
+
+const items=[];
+
+const dinero=n=>new Intl.NumberFormat("es-AR",{
+style:"currency",
+currency:"ARS",
+maximumFractionDigits:0
+}).format(Math.round(n));
+
+function render(){
+
+const lista=document.getElementById("lista");
+
+let total=0;
+let reels=0;
+let carruseles=0;
+let historias=0;
+
+if(items.length===0){
+
+lista.innerHTML='<div class="empty">Todavía no agregaste trabajos.</div>';
+
+document.getElementById("total").textContent=dinero(0);
+document.getElementById("reels").textContent=dinero(0);
+document.getElementById("carruseles").textContent=dinero(0);
+document.getElementById("historias").textContent=dinero(0);
+
+return;
+
+}
+
+lista.innerHTML=items.map((i,index)=>{
+
+total+=i.total;
+
+if(i.trabajo==="Reel") reels+=i.total;
+if(i.trabajo==="Carrusel") carruseles+=i.total;
+if(i.trabajo==="Historias (3-5)") historias+=i.total;
+
+return`
+<div class="item">
+<div class="item-info">
+<strong>${i.cantidad} ${i.trabajo}</strong>
+<small>${i.tipo}</small>
+</div>
+<strong>${dinero(i.total)}</strong>
+</div>`;
+
+}).join("");
+
+document.getElementById("total").textContent=dinero(total);
+document.getElementById("reels").textContent=dinero(reels);
+document.getElementById("carruseles").textContent=dinero(carruseles);
+document.getElementById("historias").textContent=dinero(historias);
+
+}
+
+document.getElementById("agregar").onclick=()=>{
+
+const trabajo=document.getElementById("trabajo").value;
+const tipo=document.getElementById("tipo").value;
+
+let cantidad=parseInt(document.getElementById("cantidad").value);
+
+if(cantidad<1)cantidad=1;
+if(cantidad>10)cantidad=10;
+
+const unitario=tarifas[trabajo][tipo];
+const total=unitario*cantidad*descuentos[cantidad];
+
+items.push({
+trabajo,
+tipo,
+cantidad,
+total
+});
+
+render();
+
+};
+
+document.getElementById("reiniciar").onclick=()=>{
+
+items.length=0;
+render();
+
+};
+
+document.getElementById("copiar").onclick=()=>{
+
+if(items.length===0)return;
+
+let suma=0;
+
+const texto=items.map(i=>{
+suma+=i.total;
+return`${i.cantidad} ${i.trabajo} — ${i.tipo}: ${dinero(i.total)}`;
+}).join("\n")+`\n\nTOTAL DEL PROYECTO: ${dinero(suma)}`;
+
+navigator.clipboard.writeText(texto);
+
+};
+
+render();
+
+</script>
+
+</body>
+</html>
