@@ -28,7 +28,7 @@ padding:34px;
 }
 
 .container{
-max-width:700px;
+max-width:760px;
 margin:auto;
 }
 
@@ -56,6 +56,64 @@ margin-bottom:22px;
 border:1px solid #E7E2DA;
 box-shadow:0 8px 26px rgba(0,0,0,.05);
 }
+
+/* Tarjeta informativa */
+
+.info-card{
+background:#F3EDF4;
+border:1px solid rgba(159,73,164,.25);
+}
+
+.info-card h3{
+color:#111;
+margin-bottom:8px;
+}
+
+.info-card p{
+color:#555;
+font-size:14px;
+margin-bottom:18px;
+line-height:1.5;
+}
+
+.table-title{
+font-size:14px;
+font-weight:700;
+color:#111;
+margin:18px 0 10px;
+}
+
+.info-table{
+width:100%;
+border-collapse:collapse;
+font-size:13px;
+margin-bottom:18px;
+}
+
+.info-table th{
+text-align:left;
+padding:10px;
+background:white;
+color:#111;
+border-bottom:2px solid rgba(159,73,164,.18);
+}
+
+.info-table td{
+padding:10px;
+border-bottom:1px solid #E5DCE8;
+color:#333;
+}
+
+.info-table tr:last-child td{
+border-bottom:none;
+}
+
+.info-table td:last-child,
+.info-table th:last-child{
+text-align:right;
+}
+
+/* Formulario */
 
 label{
 display:block;
@@ -115,6 +173,8 @@ color:#9F49A4;
 .secondary:hover{
 background:#F7ECF8;
 }
+
+/* Resumen */
 
 .card h3{
 font-size:20px;
@@ -185,12 +245,14 @@ display:flex;
 justify-content:space-between;
 padding:7px 0;
 font-size:15px;
-color:#222222;
+color:#222;
 }
 
 .resume-line strong{
-color:#111111;
+color:#111;
 }
+
+/* Total */
 
 .totalBox{
 background:#9F49A4;
@@ -214,9 +276,11 @@ font-size:42px;
 font-weight:800;
 }
 
+/* Otros */
+
 .empty{
 text-align:center;
-color:#888888;
+color:#888;
 padding:24px;
 }
 
@@ -244,6 +308,10 @@ font-size:34px;
 flex-direction:column;
 }
 
+.info-table{
+font-size:12px;
+}
+
 }
 
 </style>
@@ -258,34 +326,103 @@ flex-direction:column;
 
 <h1>Calculadora de valores</h1>
 
-<p>Producción y/o edición de contenido</p>
+<p>Producción y edición de contenido</p>
 
 </div>
+
+<!-- TARJETA INFORMATIVA -->
+
+<div class="card info-card">
+
+<h3>Valores de referencia</h3>
+
+<p>
+Los siguientes valores corresponden a los tarifas base utilizados por esta calculadora.
+Cuando agregás varias piezas iguales (mismo trabajo y mismo tipo de servicio), el sistema aplica automáticamente descuentos progresivos por volumen.
+</p>
+
+<div class="table-title">
+Tarifa base por servicio
+</div>
+
+<table class="info-table">
+
+<tr>
+<th>Trabajo</th>
+<th>Edición solamente</th>
+<th>Producción y Grabación</th>
+<th>Idea y Guión</th>
+</tr>
+
+<tr>
+<td>Reel</td>
+<td>$18.000</td>
+<td>$28.000</td>
+<td>$35.000</td>
+</tr>
+
+<tr>
+<td>Carrusel</td>
+<td>$15.000</td>
+<td>$22.000</td>
+<td>$28.000</td>
+</tr>
+
+<tr>
+<td>Historias (3–5)</td>
+<td>$10.000</td>
+<td>$15.000</td>
+<td>$18.000</td>
+</tr>
+
+</table>
+
+<div class="table-title">
+Descuentos por cantidad
+</div>
+
+<table class="info-table">
+
+<tr>
+<th>Cantidad</th>
+<th>Descuento</th>
+</tr>
+
+<tr><td>1</td><td>0%</td></tr>
+<tr><td>2</td><td>5%</td></tr>
+<tr><td>3</td><td>8%</td></tr>
+<tr><td>4</td><td>10%</td></tr>
+<tr><td>5</td><td>12%</td></tr>
+<tr><td>6</td><td>15%</td></tr>
+<tr><td>7</td><td>17%</td></tr>
+<tr><td>8</td><td>20%</td></tr>
+<tr><td>9</td><td>22%</td></tr>
+<tr><td>10</td><td>25%</td></tr>
+
+</table>
+
+</div>
+
+<!-- FORMULARIO -->
 
 <div class="card">
 
 <label>Trabajo</label>
 
 <select id="trabajo">
-
 <option value="" selected disabled>Seleccionar trabajo a realizar</option>
-
 <option>Reel</option>
 <option>Carrusel</option>
 <option>Historias (Pack hasta 5)</option>
-
 </select>
 
 <label>Tipo de servicio</label>
 
 <select id="tipo">
-
 <option value="" selected disabled>Elegir tipo de servicio</option>
-
-<option>Edición solo</option>
+<option>Edición solamente</option>
 <option>Producción y Grabación + Edición</option>
 <option>Idea y Guión + Producción y Grabación + Edición</option>
-
 </select>
 
 <label>Cantidad</label>
@@ -297,6 +434,8 @@ Agregar al presupuesto
 </button>
 
 </div>
+
+<!-- RESUMEN -->
 
 <div class="card">
 
@@ -364,36 +503,36 @@ Reiniciar
 const tarifas={
 
 "Reel":{
-"Edición solo":18000,
-"Producción y Grabación + Edición":35000,
-"Idea y Guión + Producción y Grabación + Edición":50000
-},
-
-"Carrusel":{
-"Edición solo":15000,
-"Producción y Grabación + Edición":25000,
+"Edición solamente":18000,
+"Producción y Grabación + Edición":28000,
 "Idea y Guión + Producción y Grabación + Edición":35000
 },
 
-"Historias (Pack hasta 5)":{
-"Edición solo":10000,
-"Producción y Grabación + Edición":20000,
-"Idea y Guión + Producción y Grabación + Edición":30000
+"Carrusel":{
+"Edición solamente":15000,
+"Producción y Grabación + Edición":22000,
+"Idea y Guión + Producción y Grabación + Edición":28000
+},
+
+"Historias (3-5)":{
+"Edición solamente":10000,
+"Producción y Grabación + Edición":15000,
+"Idea y Guión + Producción y Grabación + Edición":18000
 }
 
 };
 
 const descuentos={
 1:1,
-2:.98,
-3:.96,
-4:.94,
-5:.92,
-6:.90,
-7:.88,
-8:.87,
-9:.86,
-10:.85
+2:0.95,
+3:0.92,
+4:0.90,
+5:0.88,
+6:0.85,
+7:0.83,
+8:0.80,
+9:0.78,
+10:0.75
 };
 
 const items=[];
