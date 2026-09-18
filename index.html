@@ -1,14 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cotizador de Contenido</title>
+
+<title>Calculadora de valores</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -21,68 +23,72 @@ font-family:"Manrope",sans-serif;
 
 body{
 background:#F7F4EC;
-color:#2F2F2F;
-padding:32px;
+color:#171717;
+padding:34px;
 }
 
 .container{
-max-width:680px;
+max-width:700px;
 margin:auto;
 }
 
 .header{
-margin-bottom:28px;
+margin-bottom:30px;
 }
 
 .header h1{
-color:#9F49A4;
-font-size:34px;
-margin-bottom:6px;
+font-size:36px;
+font-weight:800;
+color:#111111;
+margin-bottom:8px;
 }
 
 .header p{
-color:#6E6E6E;
+font-size:15px;
+color:#555555;
 }
 
 .card{
 background:white;
-border-radius:24px;
-padding:24px;
-margin-bottom:20px;
-box-shadow:0 8px 24px rgba(0,0,0,.05);
-border:1px solid #E8E2D8;
+border-radius:26px;
+padding:26px;
+margin-bottom:22px;
+border:1px solid #E7E2DA;
+box-shadow:0 8px 26px rgba(0,0,0,.05);
 }
 
 label{
 display:block;
 font-size:13px;
 font-weight:700;
-color:#9F49A4;
+color:#111111;
+margin-top:18px;
 margin-bottom:8px;
-margin-top:14px;
 }
 
 select,input{
 width:100%;
-padding:14px;
+padding:15px;
 border-radius:14px;
-border:1px solid #D8D2C7;
+border:1px solid #D7D1C8;
 font-size:15px;
 background:white;
+color:#222;
 transition:.2s;
 }
 
-select:focus,input:focus{
+select:focus,
+input:focus{
 outline:none;
 border-color:#9F49A4;
 box-shadow:0 0 0 3px rgba(159,73,164,.15);
 }
 
 button{
-padding:15px;
+cursor:pointer;
 border:none;
 border-radius:14px;
-cursor:pointer;
+padding:15px;
 font-size:15px;
 font-weight:700;
 transition:.2s;
@@ -92,7 +98,7 @@ transition:.2s;
 width:100%;
 background:#9F49A4;
 color:white;
-margin-top:22px;
+margin-top:24px;
 }
 
 .primary:hover{
@@ -110,10 +116,18 @@ color:#9F49A4;
 background:#F7ECF8;
 }
 
+.card h3{
+font-size:20px;
+font-weight:700;
+color:#111111;
+margin-bottom:14px;
+}
+
 .item{
 display:flex;
 justify-content:space-between;
-padding:14px 0;
+align-items:flex-start;
+padding:16px 0;
 border-bottom:1px solid #EEE8DF;
 }
 
@@ -121,54 +135,73 @@ border-bottom:1px solid #EEE8DF;
 border-bottom:none;
 }
 
+.item-info strong{
+display:block;
+font-size:15px;
+color:#111111;
+}
+
 .item-info small{
 display:block;
-color:#777;
 margin-top:4px;
+color:#666666;
+font-size:13px;
+}
+
+.item strong:last-child{
+color:#111111;
 }
 
 .resume{
 margin-top:18px;
-border-top:1px solid #E5DFD6;
-padding-top:16px;
+padding-top:18px;
+border-top:1px solid #E7E2DA;
 }
 
 .resume-line{
 display:flex;
 justify-content:space-between;
-padding:6px 0;
+padding:7px 0;
+font-size:15px;
+color:#222222;
+}
+
+.resume-line strong{
+color:#111111;
 }
 
 .totalBox{
 background:#9F49A4;
 color:white;
 border-radius:22px;
-padding:26px;
+padding:28px;
 text-align:center;
-margin-top:18px;
+margin-top:20px;
 }
 
 .totalBox small{
 display:block;
-opacity:.85;
-letter-spacing:.5px;
-margin-bottom:6px;
+font-size:12px;
+letter-spacing:.8px;
+opacity:.9;
+margin-bottom:8px;
 }
 
 .totalBox h2{
-font-size:40px;
+font-size:42px;
+font-weight:800;
 }
 
 .empty{
 text-align:center;
-color:#8B8B8B;
-padding:20px;
+color:#888888;
+padding:24px;
 }
 
 .footer-actions{
 display:flex;
-gap:10px;
-margin-top:20px;
+gap:12px;
+margin-top:22px;
 }
 
 @media(max-width:640px){
@@ -178,11 +211,11 @@ padding:18px;
 }
 
 .header h1{
-font-size:28px;
+font-size:30px;
 }
 
 .totalBox h2{
-font-size:32px;
+font-size:34px;
 }
 
 .footer-actions{
@@ -192,6 +225,7 @@ flex-direction:column;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -199,8 +233,11 @@ flex-direction:column;
 <div class="container">
 
 <div class="header">
-<h1>Calculadora de Honorarios</h1>
+
+<h1>Calculadora de valores</h1>
+
 <p>Producción y edición de contenido</p>
+
 </div>
 
 <div class="card">
@@ -208,17 +245,25 @@ flex-direction:column;
 <label>Trabajo</label>
 
 <select id="trabajo">
+
+<option value="" selected disabled>Seleccionar trabajo a realizar</option>
+
 <option>Reel</option>
 <option>Carrusel</option>
 <option>Historias (3-5)</option>
+
 </select>
 
 <label>Tipo de servicio</label>
 
 <select id="tipo">
+
+<option value="" selected disabled>Elegir tipo de servicio</option>
+
 <option>Edición solo</option>
 <option>Producción + Grabación + Edición</option>
 <option>Idea + Guión + Producción + Grabación + Edición</option>
+
 </select>
 
 <label>Cantidad</label>
@@ -233,9 +278,7 @@ Agregar al presupuesto
 
 <div class="card">
 
-<h3 style="color:#9F49A4;margin-bottom:12px;">
-Resumen del proyecto
-</h3>
+<h3>Resumen del proyecto</h3>
 
 <div id="lista">
 
@@ -361,21 +404,21 @@ return;
 
 }
 
-lista.innerHTML=items.map(i=>{
+lista.innerHTML=items.map(item=>{
 
-total+=i.total;
+total+=item.total;
 
-if(i.trabajo==="Reel") reels+=i.total;
-if(i.trabajo==="Carrusel") carruseles+=i.total;
-if(i.trabajo==="Historias (3-5)") historias+=i.total;
+if(item.trabajo==="Reel") reels+=item.total;
+if(item.trabajo==="Carrusel") carruseles+=item.total;
+if(item.trabajo==="Historias (3-5)") historias+=item.total;
 
 return`
 <div class="item">
 <div class="item-info">
-<strong>${i.cantidad} ${i.trabajo}</strong>
-<small>${i.tipo}</small>
+<strong>${item.cantidad} ${item.trabajo}</strong>
+<small>${item.tipo}</small>
 </div>
-<strong>${dinero(i.total)}</strong>
+<strong>${dinero(item.total)}</strong>
 </div>`;
 
 }).join("");
@@ -392,6 +435,11 @@ document.getElementById("agregar").onclick=()=>{
 const trabajo=document.getElementById("trabajo").value;
 const tipo=document.getElementById("tipo").value;
 
+if(!trabajo || !tipo){
+alert("Completá el trabajo y el tipo de servicio.");
+return;
+}
+
 let cantidad=parseInt(document.getElementById("cantidad").value);
 
 if(cantidad<1)cantidad=1;
@@ -406,6 +454,10 @@ tipo,
 cantidad,
 total
 });
+
+document.getElementById("trabajo").selectedIndex=0;
+document.getElementById("tipo").selectedIndex=0;
+document.getElementById("cantidad").value=1;
 
 render();
 
@@ -424,9 +476,9 @@ if(items.length===0)return;
 
 let suma=0;
 
-const texto=items.map(i=>{
-suma+=i.total;
-return`${i.cantidad} ${i.trabajo} — ${i.tipo}: ${dinero(i.total)}`;
+const texto=items.map(item=>{
+suma+=item.total;
+return`${item.cantidad} ${item.trabajo} — ${item.tipo}: ${dinero(item.total)}`;
 }).join("\n")+`\n\nTOTAL DEL PROYECTO: ${dinero(suma)}`;
 
 navigator.clipboard.writeText(texto);
@@ -461,11 +513,13 @@ y+=8;
 
 doc.setFont("helvetica","normal");
 doc.setFontSize(12);
+doc.setTextColor(40);
 
 doc.text("Producción y Edición de Contenido",20,y);
 
 y+=10;
 
+doc.setFontSize(10);
 doc.setTextColor(120);
 
 doc.text(`Fecha de emisión: ${fecha}`,20,y);
@@ -483,7 +537,7 @@ items.forEach(item=>{
 
 doc.setFont("helvetica","bold");
 doc.setFontSize(12);
-doc.setTextColor(40);
+doc.setTextColor(30);
 
 doc.text(`${item.cantidad} ${item.trabajo}`,20,y);
 
@@ -518,7 +572,7 @@ doc.setFont("helvetica","bold");
 doc.setFontSize(18);
 doc.setTextColor(159,73,164);
 
-doc.text(`Total del proyecto`,20,y);
+doc.text("Total del proyecto",20,y);
 
 doc.text(dinero(total),190,y,{align:"right"});
 
@@ -528,7 +582,12 @@ doc.setFont("helvetica","normal");
 doc.setFontSize(10);
 doc.setTextColor(120);
 
-doc.text("Este presupuesto es orientativo y puede ajustarse según el alcance del proyecto.",20,y,{maxWidth:170});
+doc.text(
+"Este presupuesto es orientativo y puede ajustarse según el alcance del proyecto.",
+20,
+y,
+{maxWidth:170}
+);
 
 doc.save("Presupuesto-Merlina-Aguel.pdf");
 
