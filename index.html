@@ -386,7 +386,7 @@ Tarifa base por servicio
 </tr>
 
 <tr>
-<td>Historias (3–5)</td>
+<td>Pack Historias (Hasta 5)</td>
 <td>$10.000</td>
 <td>$15.000</td>
 <td>$18.000</td>
@@ -396,7 +396,7 @@ Tarifa base por servicio
 
 <div class="accordion" id="descuentosAccordion">
 <button class="accordion-header" type="button">
-<span>Ver descuentos por cantidad</span><span class="accordion-icon">⌄</span>
+<span>Descuentos por cantidad</span><span class="accordion-icon">⌄</span>
 </button>
 <div class="accordion-content">
 <table class="info-table">
@@ -413,19 +413,19 @@ Tarifa base por servicio
 <label>Trabajo</label>
 
 <select id="trabajo">
-<option value="" selected disabled>Seleccionar trabajo a realizar</option>
-<option>Reel</option>
-<option>Carrusel</option>
-<option>Historias (Pack hasta 5)</option>
+  <option value="" selected disabled>Seleccionar trabajo a realizar</option>
+  <option value="reel">Reel</option>
+  <option value="carrusel">Carrusel</option>
+  <option value="historias">Pack Historias (Hasta 5)</option>
 </select>
 
 <label>Tipo de servicio</label>
 
 <select id="tipo">
-<option value="" selected disabled>Elegir tipo de servicio</option>
-<option>Edición solamente</option>
-<option>Producción y Grabación + Edición</option>
-<option>Idea y Guión + Producción y Grabación + Edición</option>
+  <option value="" selected disabled>Elegir tipo de servicio</option>
+  <option value="edicion">Edición solamente</option>
+  <option value="produccion">Producción y Grabación + Edición</option>
+  <option value="integral">Idea y Guión + Producción y Grabación + Edición</option>
 </select>
 
 <label>Cantidad</label>
@@ -517,7 +517,7 @@ const tarifas={
 "Idea y Guión + Producción y Grabación + Edición":28000
 },
 
-"Historias (3-5)":{
+"Pack Historias (Hasta 5)":{
 "Edición solamente":10000,
 "Producción y Grabación + Edición":15000,
 "Idea y Guión + Producción y Grabación + Edición":18000
@@ -538,7 +538,33 @@ const descuentos={
 10:0.75
 };
 
+const porcentajeDescuento={
+1:0,
+2:5,
+3:8,
+4:10,
+5:12,
+6:15,
+7:17,
+8:20,
+9:22,
+10:25
+};
+
 const porcentajeDescuento={1:0,2:5,3:8,4:10,5:12,6:15,7:17,8:20,9:22,10:25};
+
+
+const nombresTrabajo={
+  reel:"Reel",
+  carrusel:"Carrusel",
+  historias:"Pack Historias (Hasta 5)"
+};
+
+const nombresTipo={
+  edicion:"Edición solamente",
+  produccion:"Producción y Grabación + Edición",
+  integral:"Idea y Guión + Producción y Grabación + Edición"
+};
 
 const items=[];
 
@@ -587,7 +613,7 @@ total+=item.total;
 
 if(item.trabajo==="Reel") reels+=item.total;
 if(item.trabajo==="Carrusel") carruseles+=item.total;
-if(item.trabajo==="Historias (Pack hasta 5)") historias+=item.total;
+if(item.trabajo==="Pack Historias (Hasta 5)") historias+=item.total;
 
 return`
 <div class="item">
