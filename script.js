@@ -70,6 +70,31 @@ function calc(item) {
 }
 
 /* ==========================
+   ENVIAR REGISTRO POR MAIL
+========================== */
+
+function enviarRegistro() {
+
+  if (!items.length) return;
+
+  const detalle = items.map(item =>
+    `${item.cantidad} ${nTrabajo[item.trabajo]} — ${nTipo[item.tipo]}`
+  ).join("\n");
+
+  $("trackingDetalle").value =
+`Fecha: ${new Date().toLocaleString("es-AR")}
+
+${detalle}
+
+Total: ${$("total").textContent}`;
+
+  fetch($("trackingForm").action, {
+    method: "POST",
+    body: new FormData($("trackingForm"))
+  }).catch(() => {});
+}
+
+/* ==========================
    ACORDEONES
 ========================== */
 
