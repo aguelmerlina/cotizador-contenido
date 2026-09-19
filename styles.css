@@ -1,1 +1,386 @@
-*{box-sizing:border-box}body{margin:0;font-family:Manrope,sans-serif;background:#F7F4EC;color:#171717;padding:32px}.container{max-width:760px;margin:auto}.header h1{font-size:36px;margin:0 0 8px}.header p{color:#555}.card{background:#fff;border-radius:24px;padding:24px;margin:22px 0;border:1px solid #E7E2DA;box-shadow:0 8px 24px rgba(0,0,0,.05)}.info-card{background:#F3EDF4}.table-title{font-weight:700;margin:18px 0 10px}.info-table{width:100%;border-collapse:collapse;font-size:13px}.info-table th,.info-table td{padding:10px;border-bottom:1px solid #E5DCE8}.accordion{margin-top:10px;border:1px solid rgba(159,73,164,.2);border-radius:18px;background:#fff;overflow:hidden}.accordion-header{width:100%;padding:16px;background:#fff;border:0;display:flex;justify-content:space-between;font-weight:700;cursor:pointer}.accordion-icon{color:#9F49A4;transition:.25s}.accordion.active .accordion-icon{transform:rotate(180deg)}.accordion-content{max-height:0;overflow:hidden;transition:max-height .35s,padding .35s;padding:0 18px}.accordion.active .accordion-content{max-height:500px;padding:0 18px 16px}label{display:block;margin:14px 0 8px;font-weight:700}select,input{width:100%;padding:14px;border-radius:14px;border:1px solid #D7D1C8}button{border-radius:14px;padding:14px;font-weight:700;cursor:pointer}.primary{width:100%;background:#9F49A4;color:#fff;border:0;margin-top:18px}.secondary{flex:1;background:#fff;border:1px solid #9F49A4;color:#9F49A4}.footer-actions{display:flex;gap:10px;margin-top:18px}.item{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #eee}.item-right{display:flex;align-items:center;gap:10px}.delete-btn{border:0;background:none;color:#999;font-size:18px;cursor:pointer}.discount-tag{display:block;margin-top:6px;font-size:12px;font-weight:700;color:#2E8B57}.resume{margin-top:16px;padding-top:16px;border-top:1px solid #E7E2DA}.resume-line{display:flex;justify-content:space-between;padding:6px 0}.totalBox{margin-top:18px;background:#9F49A4;color:#fff;border-radius:20px;padding:24px;text-align:center}.empty{text-align:center;color:#888;padding:24px}@media(max-width:640px){body{padding:18px}.footer-actions{flex-direction:column}}
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Manrope,sans-serif;
+  background:#F7F4EC;
+  color:#171717;
+  padding:32px;
+}
+
+.container{
+  max-width:760px;
+  margin:auto;
+}
+
+/* Encabezado */
+
+.header h1{
+  font-size:36px;
+  margin:0 0 8px;
+}
+
+.header p{
+  color:#555;
+}
+
+/* Tarjetas */
+
+.card{
+  background:#fff;
+  border-radius:24px;
+  padding:24px;
+  margin:22px 0;
+  border:1px solid #E7E2DA;
+  box-shadow:0 8px 24px rgba(0,0,0,.05);
+}
+
+/* Tarjeta de referencia */
+
+.info-card{
+  background:#F3EDF4;
+  border:1px solid rgba(159,73,164,.22);
+  text-align:center;
+}
+
+.info-card h3{
+  margin-bottom:10px;
+  color:#111;
+}
+
+.info-card p{
+  max-width:560px;
+  margin:0 auto 22px;
+  line-height:1.55;
+  color:#555;
+  font-size:14px;
+}
+
+.table-title{
+  font-size:14px;
+  font-weight:700;
+  color:#111;
+  margin:22px 0 12px;
+  text-align:center;
+}
+
+/* Tablas */
+
+.info-table{
+  width:100%;
+  max-width:620px;
+  margin:0 auto 18px;
+  border-collapse:collapse;
+  font-size:13px;
+  background:white;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.info-table th{
+  padding:12px;
+  background:white;
+  color:#111;
+  border-bottom:2px solid rgba(159,73,164,.18);
+  text-align:center;
+}
+
+.info-table td{
+  padding:11px;
+  border-bottom:1px solid #E5DCE8;
+  text-align:center;
+  color:#333;
+}
+
+.info-table tr:last-child td{
+  border-bottom:none;
+}
+
+/* Acordeones */
+
+.accordion{
+  max-width:620px;
+  margin:14px auto 0;
+  border:1px solid rgba(159,73,164,.18);
+  border-radius:18px;
+  overflow:hidden;
+  background:white;
+}
+
+.accordion-header{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 20px;
+  background:white;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:700;
+  color:#111;
+  border:none;
+}
+
+.accordion-header:hover{
+  background:#FAF8FB;
+}
+
+.accordion-icon{
+  color:#9F49A4;
+  font-size:18px;
+  transition:transform .25s ease;
+}
+
+.accordion.active .accordion-icon{
+  transform:rotate(180deg);
+}
+
+.accordion-content{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .35s ease,padding .35s ease;
+  padding:0 20px;
+}
+
+.accordion.active .accordion-content{
+  max-height:700px;
+  padding:0 20px 18px;
+}
+
+/* Formulario */
+
+label{
+  display:block;
+  margin:14px 0 8px;
+  font-weight:700;
+}
+
+select,
+input{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid #D7D1C8;
+  background:white;
+  font-size:15px;
+}
+
+select:focus,
+input:focus{
+  outline:none;
+  border-color:#9F49A4;
+  box-shadow:0 0 0 3px rgba(159,73,164,.15);
+}
+
+/* Botones */
+
+button{
+  border-radius:14px;
+  padding:14px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.primary{
+  width:100%;
+  background:#9F49A4;
+  color:white;
+  border:none;
+  margin-top:18px;
+}
+
+.primary:hover{
+  background:#883A8D;
+}
+
+.secondary{
+  flex:1;
+  background:white;
+  border:1px solid #9F49A4;
+  color:#9F49A4;
+}
+
+.secondary:hover{
+  background:#F7ECF8;
+}
+
+.footer-actions{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
+
+/* Resumen */
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  padding:14px 0;
+  border-bottom:1px solid #EEE;
+}
+
+.item:last-child{
+  border-bottom:none;
+}
+
+.item-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.delete-btn{
+  border:none;
+  background:none;
+  color:#999;
+  font-size:18px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.delete-btn:hover{
+  color:#9F49A4;
+  transform:scale(1.1);
+}
+
+.discount-tag{
+  display:block;
+  margin-top:6px;
+  font-size:12px;
+  font-weight:700;
+  color:#2E8B57;
+}
+
+/* Subtotales */
+
+.resume{
+  margin-top:16px;
+  padding-top:16px;
+  border-top:1px solid #E7E2DA;
+}
+
+.resume-line{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+}
+
+/* Total */
+
+.totalBox{
+  margin-top:18px;
+  background:#9F49A4;
+  color:white;
+  border-radius:20px;
+  padding:24px;
+  text-align:center;
+}
+
+.totalBox small{
+  display:block;
+  margin-bottom:6px;
+  letter-spacing:.6px;
+}
+
+.totalBox h2{
+  margin:0;
+  font-size:40px;
+}
+
+/* Estado vacío */
+
+.empty{
+  text-align:center;
+  color:#888;
+  padding:24px;
+}
+
+/* Tarjetas del glosario */
+
+.service-cards{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:6px;
+}
+
+.service-card{
+  background:#FAF8FB;
+  border:1px solid rgba(159,73,164,.15);
+  border-radius:16px;
+  padding:16px;
+  text-align:left;
+  transition:.2s ease;
+}
+
+.service-card:hover{
+  border-color:#9F49A4;
+  transform:translateY(-2px);
+}
+
+.service-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:8px;
+}
+
+.service-icon{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:#9F49A4;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  flex-shrink:0;
+}
+
+.service-head strong{
+  color:#111;
+  font-size:14px;
+}
+
+.service-card p{
+  margin:0;
+  color:#555;
+  font-size:13px;
+  line-height:1.55;
+  max-width:none;
+}
+
+/* Responsive */
+
+@media(max-width:640px){
+
+  body{
+    padding:18px;
+  }
+
+  .header h1{
+    font-size:30px;
+  }
+
+  .footer-actions{
+    flex-direction:column;
+  }
+
+  .info-table{
+    font-size:12px;
+  }
+
+  .accordion{
+    max-width:100%;
+  }
+
+  .info-table{
+    max-width:100%;
+  }
+
+}
