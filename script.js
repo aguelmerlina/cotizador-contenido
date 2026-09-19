@@ -265,7 +265,7 @@ $("copiar").onclick = () => {
 TOTAL DEL PROYECTO: ${dinero(suma)}`;
 
   navigator.clipboard.writeText(texto);
-};
+enviarRegistro();
 
 /* ==========================
    EXPORTAR PDF
@@ -365,8 +365,8 @@ $("pdf").onclick = () => {
     { maxWidth: 170 }
   );
 
-  doc.save("Presupuesto-Merlina-Aguel.pdf");
-};
+  enviarRegistro();
+doc.save("Presupuesto-Merlina-Aguel.pdf");
 
 /* ==========================
    INICIALIZACIÓN
