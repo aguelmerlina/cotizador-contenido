@@ -73,21 +73,20 @@ function calc(item) {
    ACORDEONES
 ========================== */
 
-const descuentosAccordion = $("descuentosAccordion");
+function inicializarAcordeon(id) {
+  const acordeon = $(id);
+  if (!acordeon) return;
 
-descuentosAccordion
-  .querySelector(".accordion-header")
-  .addEventListener("click", () => {
-    descuentosAccordion.classList.toggle("active");
+  const boton = acordeon.querySelector(".accordion-header");
+  if (!boton) return;
+
+  boton.addEventListener("click", () => {
+    acordeon.classList.toggle("active");
   });
+}
 
-const glosarioAccordion = $("glosarioAccordion");
-
-glosarioAccordion
-  .querySelector(".accordion-header")
-  .addEventListener("click", () => {
-    glosarioAccordion.classList.toggle("active");
-  });
+inicializarAcordeon("descuentosAccordion");
+inicializarAcordeon("glosarioAccordion");
 
 /* ==========================
    RENDER
@@ -113,51 +112,49 @@ function render() {
     return;
   }
 
-  $("lista").innerHTML = items
-    .map((item, index) => {
+  $("lista").innerHTML = items.map((item, index) => {
 
-      item.total = calc(item);
+    item.total = calc(item);
 
-      total += item.total;
+    total += item.total;
 
-      if (item.trabajo === "reel") reels += item.total;
-      if (item.trabajo === "carrusel") carruseles += item.total;
-      if (item.trabajo === "historias") historias += item.total;
+    if (item.trabajo === "reel") reels += item.total;
+    if (item.trabajo === "carrusel") carruseles += item.total;
+    if (item.trabajo === "historias") historias += item.total;
 
-      return `
-        <div class="item">
+    return `
+      <div class="item">
 
-          <div>
+        <div>
 
-            <strong>${item.cantidad} ${nTrabajo[item.trabajo]}</strong><br>
+          <strong>${item.cantidad} ${nTrabajo[item.trabajo]}</strong><br>
 
-            <small>${nTipo[item.tipo]}</small>
+          <small>${nTipo[item.tipo]}</small>
 
-            ${
-              item.cantidad > 1
-                ? `<span class="discount-tag">✓ Descuento aplicado: ${porcentaje[item.cantidad]}%</span>`
-                : ""
-            }
-
-          </div>
-
-          <div class="item-right">
-
-            <strong>${dinero(item.total)}</strong>
-
-            <button class="delete-btn"
-              onclick="eliminarItem(${index})"
-              title="Eliminar">
-              🗑
-            </button>
-
-          </div>
+          ${
+            item.cantidad > 1
+              ? `<span class="discount-tag">✓ Descuento aplicado: ${porcentaje[item.cantidad]}%</span>`
+              : ""
+          }
 
         </div>
-      `;
 
-    })
-    .join("");
+        <div class="item-right">
+
+          <strong>${dinero(item.total)}</strong>
+
+          <button class="delete-btn"
+            onclick="eliminarItem(${index})"
+            title="Eliminar">
+            🗑
+          </button>
+
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
 
   $("total").textContent = dinero(total);
   $("reels").textContent = dinero(reels);
@@ -231,18 +228,16 @@ $("copiar").onclick = () => {
 
   let suma = 0;
 
-  const texto =
-    items
-      .map(item => {
+  const texto = items.map(item => {
 
-        item.total = calc(item);
-        suma += item.total;
+    item.total = calc(item);
+    suma += item.total;
 
-        return `${item.cantidad} ${nTrabajo[item.trabajo]} — ${nTipo[item.tipo]}: ${dinero(item.total)}`;
+    return `${item.cantidad} ${nTrabajo[item.trabajo]} — ${nTipo[item.tipo]}: ${dinero(item.total)}`;
 
-      })
-      .join("\n") +
-    `\n\nTOTAL DEL PROYECTO: ${dinero(suma)}`;
+  }).join("\n") + `
+
+TOTAL DEL PROYECTO: ${dinero(suma)}`;
 
   navigator.clipboard.writeText(texto);
 };
@@ -342,9 +337,7 @@ $("pdf").onclick = () => {
     "Este presupuesto es orientativo y puede ajustarse según el alcance del proyecto.",
     20,
     y,
-    {
-      maxWidth: 170
-    }
+    { maxWidth: 170 }
   );
 
   doc.save("Presupuesto-Merlina-Aguel.pdf");
