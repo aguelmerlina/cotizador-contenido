@@ -15,18 +15,23 @@ body{
   margin:auto;
 }
 
-/* Encabezado */
+/* ==========================
+   ENCABEZADO
+========================== */
 
 .header h1{
   font-size:36px;
   margin:0 0 8px;
+  color:#111;
 }
 
 .header p{
   color:#555;
 }
 
-/* Tarjetas */
+/* ==========================
+   TARJETAS
+========================== */
 
 .card{
   background:#fff;
@@ -37,7 +42,9 @@ body{
   box-shadow:0 8px 24px rgba(0,0,0,.05);
 }
 
-/* Tarjeta de referencia */
+/* ==========================
+   TARJETA DE REFERENCIA
+========================== */
 
 .info-card{
   background:#F3EDF4;
@@ -45,7 +52,7 @@ body{
 }
 
 .info-card h3{
-  margin-bottom:10px;
+  margin:0 0 10px;
   color:#111;
   text-align:left;
 }
@@ -67,7 +74,9 @@ body{
   text-align:center;
 }
 
-/* Tablas */
+/* ==========================
+   TABLAS
+========================== */
 
 .info-table{
   width:100%;
@@ -95,17 +104,21 @@ body{
   color:#333;
 }
 
+.info-table tr:last-child td{
+  border-bottom:none;
+}
+
+/* Primera columna alineada a la izquierda */
+
 .info-table th:first-child,
 .info-table td:first-child{
   text-align:left;
   padding-left:18px;
 }
 
-.info-table tr:last-child td{
-  border-bottom:none;
-}
-
-/* Acordeones */
+/* ==========================
+   ACORDEONES
+========================== */
 
 .accordion{
   max-width:620px;
@@ -134,6 +147,10 @@ body{
   background:#FAF8FB;
 }
 
+.accordion.active .accordion-header{
+  background:#FAF8FB;
+}
+
 .accordion-icon{
   color:#9F49A4;
   font-size:18px;
@@ -156,7 +173,9 @@ body{
   padding:0 20px 18px;
 }
 
-/* Formulario */
+/* ==========================
+   FORMULARIO
+========================== */
 
 label{
   display:block;
@@ -181,7 +200,9 @@ input:focus{
   box-shadow:0 0 0 3px rgba(159,73,164,.15);
 }
 
-/* Botones */
+/* ==========================
+   BOTONES
+========================== */
 
 button{
   border-radius:14px;
@@ -220,7 +241,9 @@ button{
   margin-top:18px;
 }
 
-/* Resumen */
+/* ==========================
+   RESUMEN
+========================== */
 
 .item{
   display:flex;
@@ -262,7 +285,9 @@ button{
   color:#2E8B57;
 }
 
-/* Subtotales */
+/* ==========================
+   SUBTOTALES
+========================== */
 
 .resume{
   margin-top:16px;
@@ -276,7 +301,9 @@ button{
   padding:6px 0;
 }
 
-/* Total */
+/* ==========================
+   TOTAL
+========================== */
 
 .totalBox{
   margin-top:18px;
@@ -298,7 +325,9 @@ button{
   font-size:40px;
 }
 
-/* Estado vacío */
+/* ==========================
+   ESTADO VACÍO
+========================== */
 
 .empty{
   text-align:center;
@@ -306,7 +335,9 @@ button{
   padding:24px;
 }
 
-/* Tarjetas del glosario */
+/* ==========================
+   TARJETAS DEL GLOSARIO
+========================== */
 
 .service-cards{
   display:flex;
@@ -319,7 +350,7 @@ button{
   background:#FAF8FB;
   border:1px solid rgba(159,73,164,.15);
   border-radius:16px;
-  padding:16px;
+  padding:18px;
   text-align:left;
   transition:.2s ease;
 }
@@ -333,12 +364,12 @@ button{
   display:flex;
   align-items:center;
   gap:12px;
-  margin-bottom:8px;
+  margin-bottom:10px;
 }
 
 .service-icon{
-  width:40px;
-  height:40px;
+  width:42px;
+  height:42px;
   border-radius:12px;
   background:#9F49A4;
   color:white;
@@ -346,6 +377,7 @@ button{
   align-items:center;
   justify-content:center;
   font-size:20px;
+  line-height:1;
   flex-shrink:0;
 }
 
@@ -362,7 +394,9 @@ button{
   max-width:none;
 }
 
-/* Responsive */
+/* ==========================
+   RESPONSIVE
+========================== */
 
 @media(max-width:640px){
 
@@ -379,6 +413,7 @@ button{
   }
 
   .info-table{
+    max-width:100%;
     font-size:12px;
   }
 
@@ -386,8 +421,8 @@ button{
     max-width:100%;
   }
 
-  .info-table{
-    max-width:100%;
+  .service-card{
+    padding:16px;
   }
 
 }
