@@ -73,25 +73,21 @@ function calc(item) {
    ENVIAR REGISTRO POR MAIL
 ========================== */
 
-function enviarRegistro() {
+function enviarRegistro(){
 
-  if (!items.length) return;
-
-  const detalle = items.map(item =>
-    `${item.cantidad} ${nTrabajo[item.trabajo]} — ${nTipo[item.tipo]}`
-  ).join("\n");
+  if(!items.length) return;
 
   $("trackingDetalle").value =
 `Fecha: ${new Date().toLocaleString("es-AR")}
 
-${detalle}
+${items.map(item =>
+`${item.cantidad} ${nTrabajo[item.trabajo]} — ${nTipo[item.tipo]}`
+).join("\n")}
 
 Total: ${$("total").textContent}`;
 
-  fetch($("trackingForm").action, {
-    method: "POST",
-    body: new FormData($("trackingForm"))
-  }).catch(() => {});
+  $("trackingForm").submit();
+
 }
 
 /* ==========================
@@ -267,6 +263,8 @@ TOTAL DEL PROYECTO: ${dinero(suma)}`;
   navigator.clipboard.writeText(texto);
 enviarRegistro();
 
+};
+  
 /* ==========================
    EXPORTAR PDF
 ========================== */
