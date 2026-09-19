@@ -86,7 +86,11 @@ ${items.map(item =>
 
 Total: ${$("total").textContent}`;
 
-  $("trackingForm").submit();
+  fetch($("trackingForm").action,{
+    method:"POST",
+    body:new FormData($("trackingForm")),
+    mode:"no-cors"
+  });
 
 }
 
@@ -364,7 +368,9 @@ $("pdf").onclick = () => {
   );
 
   enviarRegistro();
-doc.save("Presupuesto-Merlina-Aguel.pdf");
+  doc.save("Presupuesto-Merlina-Aguel.pdf");
+
+  };
 
 /* ==========================
    INICIALIZACIÓN
