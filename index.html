@@ -112,6 +112,55 @@ border-bottom:none;
 text-align:right;
 }
 
+  /* Acordeón */
+
+.accordion{
+margin-top:8px;
+border:1px solid rgba(159,73,164,.18);
+border-radius:18px;
+overflow:hidden;
+background:white;
+}
+
+.accordion-header{
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px 18px;
+background:white;
+cursor:pointer;
+font-size:14px;
+font-weight:700;
+color:#111;
+}
+
+.accordion-header:hover{
+background:#FAF8FB;
+}
+
+.accordion-icon{
+color:#9F49A4;
+font-size:18px;
+transition:transform .25s ease;
+}
+
+.accordion.active .accordion-icon{
+transform:rotate(180deg);
+}
+
+.accordion-content{
+max-height:0;
+overflow:hidden;
+transition:max-height .35s ease,padding .35s ease;
+padding:0 18px;
+}
+
+.accordion.active .accordion-content{
+max-height:500px;
+padding:0 18px 16px;
+}
+  
 /* Formulario */
 
 label{
@@ -376,11 +425,39 @@ Tarifa base por servicio
 
 </table>
 
-<div class="table-title">
-Descuentos por cantidad
-</div>
+<div class="accordion" id="descuentosAccordion">
+
+<button class="accordion-header" type="button">
+
+<span>Descuentos por cantidad</span>
+
+<span class="accordion-icon">⌄</span>
+
+</button>
+
+<div class="accordion-content">
 
 <table class="info-table">
+
+<tr>
+<th>Cantidad</th>
+<th>Descuento</th>
+</tr>
+
+<tr><td>1</td><td>0%</td></tr>
+<tr><td>2</td><td>5%</td></tr>
+<tr><td>3</td><td>8%</td></tr>
+<tr><td>4</td><td>10%</td></tr>
+<tr><td>5</td><td>12%</td></tr>
+<tr><td>6</td><td>15%</td></tr>
+<tr><td>7</td><td>17%</td></tr>
+<tr><td>8</td><td>20%</td></tr>
+<tr><td>9</td><td>22%</td></tr>
+<tr><td>10</td><td>25%</td></tr>
+
+</table>
+
+</div>
 
 <tr>
 <th>Cantidad</th>
@@ -533,6 +610,19 @@ const descuentos={
 9:0.78,
 10:0.75
 };
+  
+const porcentajeDescuento={
+1:0,
+2:5,
+3:8,
+4:10,
+5:12,
+6:15,
+7:17,
+8:20,
+9:22,
+10:25
+};
 
 const items=[];
 
@@ -586,9 +676,25 @@ if(item.trabajo==="Historias (Pack hasta 5)") historias+=item.total;
 return`
 <div class="item">
 
+Reemplazalo por:
+
 <div class="item-info">
-<strong>${item.cantidad} ${item.trabajo}</strong>
-<small>${item.tipo}</small>
+  <strong>${item.cantidad} ${item.trabajo}</strong>
+  <small>${item.tipo}</small>
+
+  ${item.cantidad>1
+    ? `<span class="discount-tag">✓ Descuento aplicado: ${porcentajeDescuento[item.cantidad]}%</span>`
+    : ""
+  }
+
+</div>
+.discount-tag{
+display:block;
+margin-top:6px;
+font-size:12px;
+font-weight:600;
+color:#2E8B57;
+}
 </div>
 
 <div class="item-right">
@@ -804,7 +910,16 @@ y,
 doc.save("Presupuesto-Merlina-Aguel.pdf");
 
 };
+  
+// Acordeón de descuentos
 
+const accordion=document.getElementById("descuentosAccordion");
+
+accordion.querySelector(".accordion-header").addEventListener("click",()=>{
+
+accordion.classList.toggle("active");
+
+});
 render();
 
 </script>
