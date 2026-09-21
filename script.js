@@ -77,7 +77,7 @@ function calc(item) {
 
 async function enviarRegistro(){
 
-  if(!items.length) return null;
+  if(!items.length) return "0000";
 
   const detalle =
 `Fecha: ${new Date().toLocaleString("es-AR")}
@@ -282,7 +282,6 @@ $("copiar").onclick = () => {
 TOTAL DEL PROYECTO: ${dinero(suma)}`;
 
   navigator.clipboard.writeText(texto);
-enviarRegistro();
 
 };
   
@@ -395,7 +394,6 @@ $("pdf").onclick=async()=>{
     { maxWidth: 170 }
   );
 
-  enviarRegistro();
   doc.save(`Presupuesto-${numeroCotizacion}.pdf`);
 
   };
