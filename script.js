@@ -89,22 +89,27 @@ ${items.map(item =>
 Total: ${$("total").textContent}`;
 
   const data = new URLSearchParams();
-  data.append("detalle",detalle);
+  data.append("detalle", detalle);
 
   try{
 
     const respuesta = await fetch(WEBAPP_URL,{
       method:"POST",
-      body:data
+      headers:{
+        "Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"
+      },
+      body:data.toString(),
+      redirect:"follow"
     });
 
-    const json = await respuesta.json();
+    const texto = await respuesta.text();
+    const json = JSON.parse(texto);
 
     return json.numero;
 
   }catch(error){
 
-    console.error(error);
+    console.error("Error Apps Script:", error);
     return "0000";
 
   }
