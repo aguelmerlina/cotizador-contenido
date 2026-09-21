@@ -1,5 +1,3 @@
-const WEBAPP_URL="https://script.google.com/macros/s/AKfycbyh8i30Eo5zl0i52Xrt1CkXI3gcAfAcEl9cD_eeHpj62sW7qRH5MHHe3hN_OqhRycE93w/exec";
-
 const tarifas = {
   reel: {
     edicion: 18000,
@@ -69,51 +67,6 @@ const dinero = n =>
 
 function calc(item) {
   return tarifas[item.trabajo][item.tipo] * item.cantidad * descuentos[item.cantidad];
-}
-
-/* ==========================
-   ENVIAR REGISTRO POR MAIL
-========================== */
-
-async function enviarRegistro(){
-
-  if(!items.length) return "0000";
-
-  const detalle =
-`Fecha: ${new Date().toLocaleString("es-AR")}
-
-${items.map(item =>
-`${item.cantidad} ${nTrabajo[item.trabajo]} — ${nTipo[item.tipo]}`
-).join("\n")}
-
-Total: ${$("total").textContent}`;
-
-  const data = new URLSearchParams();
-  data.append("detalle", detalle);
-
-  try{
-
-    const respuesta = await fetch(WEBAPP_URL,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"
-      },
-      body:data.toString(),
-      redirect:"follow"
-    });
-
-    const texto = await respuesta.text();
-    const json = JSON.parse(texto);
-
-    return json.numero;
-
-  }catch(error){
-
-    console.error("Error Apps Script:", error);
-    return "0000";
-
-  }
-
 }
 
 /* ==========================
@@ -289,20 +242,17 @@ TOTAL DEL PROYECTO: ${dinero(suma)}`;
   navigator.clipboard.writeText(texto);
 
 };
-  
+
 /* ==========================
    EXPORTAR PDF
 ========================== */
 
-$("pdf").onclick=async()=>{
+$("pdf").onclick = () => {
 
   if (!items.length) return;
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
-
-  // Obtener el número correlativo desde Google Apps Script
-  const numeroCotizacion = await enviarRegistro();
 
   let y = 24;
   let suma = 0;
@@ -328,14 +278,6 @@ $("pdf").onclick=async()=>{
 
   doc.text(
     "Fecha: " + new Date().toLocaleDateString("es-AR"),
-    20,
-    y
-  );
-
-  y += 6;
-
-  doc.text(
-    "Cotización Nº " + numeroCotizacion,
     20,
     y
   );
@@ -399,9 +341,9 @@ $("pdf").onclick=async()=>{
     { maxWidth: 170 }
   );
 
-  doc.save(`Presupuesto-${numeroCotizacion}.pdf`);
+  doc.save("Presupuesto-Merlina-Aguel.pdf");
 
-  };
+};
 
 /* ==========================
    INICIALIZACIÓN
