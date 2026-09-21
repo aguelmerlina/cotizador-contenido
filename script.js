@@ -1,3 +1,5 @@
+const WEBAPP_URL="https://script.google.com/macros/s/AKfycbyh8i30Eo5zl0i52Xrt1CkXI3gcAfAcEl9cD_eeHpj62sW7qRH5MHHe3hN_OqhRycE93w/exec";
+
 const tarifas = {
   reel: {
     edicion: 18000,
@@ -73,11 +75,11 @@ function calc(item) {
    ENVIAR REGISTRO POR MAIL
 ========================== */
 
-function enviarRegistro(){
+async function enviarRegistro(){
 
-  if(!items.length) return;
+  if(!items.length) return null;
 
-  $("trackingDetalle").value =
+  const detalle =
 `Fecha: ${new Date().toLocaleString("es-AR")}
 
 ${items.map(item =>
@@ -86,11 +88,26 @@ ${items.map(item =>
 
 Total: ${$("total").textContent}`;
 
-  fetch($("trackingForm").action,{
-    method:"POST",
-    body:new FormData($("trackingForm")),
-    mode:"no-cors"
-  });
+  const data = new URLSearchParams();
+  data.append("detalle",detalle);
+
+  try{
+
+    const respuesta = await fetch(WEBAPP_URL,{
+      method:"POST",
+      body:data
+    });
+
+    const json = await respuesta.json();
+
+    return json.numero;
+
+  }catch(error){
+
+    console.error(error);
+    return "0000";
+
+  }
 
 }
 
@@ -273,12 +290,15 @@ enviarRegistro();
    EXPORTAR PDF
 ========================== */
 
-$("pdf").onclick = () => {
+$("pdf").onclick=async()=>{
 
   if (!items.length) return;
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
+
+  // Obtener el número correlativo desde Google Apps Script
+  const numeroCotizacion = await enviarRegistro();
 
   let y = 24;
   let suma = 0;
@@ -304,6 +324,14 @@ $("pdf").onclick = () => {
 
   doc.text(
     "Fecha: " + new Date().toLocaleDateString("es-AR"),
+    20,
+    y
+  );
+
+  y += 6;
+
+  doc.text(
+    "Cotización Nº " + numeroCotizacion,
     20,
     y
   );
@@ -368,7 +396,7 @@ $("pdf").onclick = () => {
   );
 
   enviarRegistro();
-  doc.save("Presupuesto-Merlina-Aguel.pdf");
+  doc.save(`Presupuesto-${numeroCotizacion}.pdf`);
 
   };
 
