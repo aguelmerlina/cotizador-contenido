@@ -70,6 +70,27 @@ function calc(item) {
 }
 
 /* ==========================
+   ENVIAR REGISTRO POR MAIL
+========================== */
+
+function enviarRegistro(){
+
+  if(!items.length) return;
+
+  $("trackingDetalle").value =
+`Fecha: ${new Date().toLocaleString("es-AR")}
+
+${items.map(item =>
+`${item.cantidad} ${nTrabajo[item.trabajo]} — ${nTipo[item.tipo]}`
+).join("\n")}
+
+Total: ${$("total").textContent}`;
+
+  $("trackingForm").submit();
+
+}
+
+/* ==========================
    ACORDEONES
 ========================== */
 
@@ -340,7 +361,8 @@ $("pdf").onclick = () => {
     y,
     { maxWidth: 170 }
   );
-
+  
+  enviarRegistro();
   doc.save("Presupuesto-Merlina-Aguel.pdf");
 
 };
